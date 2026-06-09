@@ -57,6 +57,13 @@
 		background: url('/images/background.jpg') center center / cover no-repeat fixed;
 	}
 
+	@media (max-width: 63.99875rem) {
+		#mobile-menu {
+			background-color: var(--color-accent) !important;
+			background-image: none !important;
+		}
+	}
+
 	body::before {
 		content: '';
 		position: fixed;
