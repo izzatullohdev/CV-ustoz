@@ -1,0 +1,33 @@
+---
+import type { Lang } from '../i18n/ui';
+import { useTranslations } from '../i18n/utils';
+import SocialLinksSidebar from './SocialLinksSidebar.astro';
+
+interface Props {
+	lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<div class="flex flex-col items-center text-center">
+	<div class="relative mb-6 h-36 w-36 overflow-hidden rounded-full border-[3px] border-white/40 shadow-lg">
+		<img
+			src="/images/portrait.jpg"
+			alt={t('profile.name')}
+			width="144"
+			height="144"
+			class="h-full w-full object-cover object-top"
+			loading="eager"
+		/>
+	</div>
+
+	<h1 class="font-sans text-2xl text-white">{t('profile.name')}</h1>
+	<p class="mt-1 text-sm font-semibold tracking-wide text-white/90 uppercase">{t('profile.role')}</p>
+	<p class="mt-3 max-w-xs text-sm leading-relaxed text-white/75">
+		{t('profile.tagline')}
+	</p>
+
+	<SocialLinksSidebar lang={lang} />
+</div>

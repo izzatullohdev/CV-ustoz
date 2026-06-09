@@ -1,0 +1,161 @@
+---
+import '../styles/global.css';
+import { languages, type Lang, type UIKey, ui } from '../i18n/ui';
+import SiteHeader from '../components/SiteHeader.astro';
+import Sidebar from '../components/Sidebar.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+	lang: Lang;
+	title?: string;
+	description?: string;
+}
+
+const { lang, title, description } = Astro.props;
+const t = (key: UIKey) => ui[lang][key];
+const pageTitle = title ?? t('site.title');
+const pageDescription = description ?? t('site.description');
+const canonicalPath = Astro.url.pathname.endsWith('/')
+	? Astro.url.pathname
+	: `${Astro.url.pathname}/`;
+const siteOrigin = Astro.site?.origin ?? Astro.url.origin;
+const canonicalUrl = new URL(canonicalPath, siteOrigin).href;
+---
+
+<!doctype html>
+<html lang={lang}>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content={pageDescription} />
+		<meta name="generator" content={Astro.generator} />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="canonical" href={canonicalUrl} />
+
+		<title>{pageTitle}</title>
+
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={pageTitle} />
+		<meta property="og:description" content={pageDescription} />
+		<meta property="og:url" content={canonicalUrl} />
+		<meta property="og:locale" content={lang === 'uz' ? 'uz_UZ' : lang === 'ru' ? 'ru_RU' : 'en_US'} />
+
+		{
+			languages.map((altLang) => {
+				const segments = canonicalPath.split('/').filter(Boolean);
+				if (segments.length > 0) segments[0] = altLang;
+				const altPath = segments.length ? `/${segments.join('/')}/` : `/${altLang}/`;
+				return (
+					<link
+						rel="alternate"
+						hreflang={altLang}
+						href={new URL(altPath, siteOrigin).href}
+					/>
+				);
+			})
+		}
+		<link rel="alternate" hreflang="x-default" href={new URL('/uz/', siteOrigin).href} />
+
+		<script is:inline>
+			(function () {
+				const stored = localStorage.getItem('theme');
+				const theme = stored === 'light' || stored === 'dark' ? stored : 'light';
+				if (theme === 'dark') document.documentElement.classList.add('dark');
+			})();
+		</script>
+
+		<style is:inline>
+			.layout-root {
+				display: flex;
+				min-height: 100vh;
+			}
+
+			.layout-main {
+				display: flex;
+				flex: 1;
+				flex-direction: column;
+				min-height: 100vh;
+			}
+
+			#site-sidebar {
+				display: none;
+				width: 18rem;
+				flex-shrink: 0;
+			}
+
+			.site-mobile-only {
+				display: block;
+			}
+
+			@media (min-width: 64rem) {
+				#site-sidebar {
+					display: flex;
+					flex-direction: column;
+				}
+
+				.site-mobile-only {
+					display: none !important;
+				}
+			}
+		</style>
+	</head>
+	<body class="min-h-screen">
+		<div class="layout-root flex min-h-screen">
+			<aside
+				id="site-sidebar"
+				class="hidden w-72 shrink-0 flex-col bg-accent px-6 py-10 text-white lg:sticky lg:top-0 lg:flex lg:h-screen lg:overflow-y-auto"
+			>
+				<Sidebar lang={lang} currentPath={Astro.url.pathname} />
+			</aside>
+
+			<div class="layout-main flex min-h-screen flex-1 flex-col bg-paper">
+				<div class="site-mobile-only lg:hidden">
+					<SiteHeader lang={lang} currentPath={Astro.url.pathname} />
+				</div>
+
+				<main class="flex-1 px-4 py-8 lg:px-10 lg:py-10 animate-fade-in">
+					<slot />
+				</main>
+
+				<Footer lang={lang} />
+			</div>
+		</div>
+
+		<script is:inline>
+			function setMobileMenuOpen(open) {
+				const toggle = document.querySelector('[data-mobile-menu-toggle]');
+				const menu = document.querySelector('[data-mobile-menu]');
+				const backdrop = document.querySelector('[data-mobile-menu-backdrop]');
+				if (!toggle || !menu) return;
+
+				const openLabel = toggle.dataset.labelOpen || 'Open menu';
+				const closeLabel = toggle.dataset.labelClose || 'Close menu';
+				const iconOpen = toggle.querySelector('[data-menu-icon-open]');
+				const iconClose = toggle.querySelector('[data-menu-icon-close]');
+
+				toggle.setAttribute('aria-expanded', String(open));
+				toggle.setAttribute('aria-label', open ? closeLabel : openLabel);
+				menu.classList.toggle('-translate-y-full', !open);
+				menu.classList.toggle('pointer-events-none', !open);
+				menu.setAttribute('aria-hidden', String(!open));
+
+				if (backdrop) {
+					backdrop.classList.toggle('opacity-0', !open);
+					backdrop.classList.toggle('pointer-events-none', !open);
+				}
+
+				if (iconOpen) iconOpen.classList.toggle('hidden', open);
+				if (iconClose) iconClose.classList.toggle('hidden', !open);
+				document.body.style.overflow = open ? 'hidden' : '';
+			}
+
+			window.toggleMobileMenu = function (button) {
+				setMobileMenuOpen(button.getAttribute('aria-expanded') !== 'true');
+			};
+
+			window.closeMobileMenu = function () {
+				setMobileMenuOpen(false);
+			};
+		</script>
+	</body>
+</html>

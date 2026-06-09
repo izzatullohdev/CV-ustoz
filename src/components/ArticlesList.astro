@@ -1,0 +1,62 @@
+---
+import type { PublicationGroup } from '../config/publications';
+
+interface Props {
+	groups: PublicationGroup[];
+	viewLabel: string;
+	emptyLabel: string;
+}
+
+const { groups, viewLabel, emptyLabel } = Astro.props;
+---
+
+{
+	groups.length === 0 ? (
+		<p class="prose-width text-lg leading-relaxed text-ink-muted dark:text-paper/75">
+			{emptyLabel}
+		</p>
+	) : (
+		<div class="space-y-10">
+			{
+				groups.map((group) => (
+					<div>
+						<h3 class="mb-4 font-sans text-xl text-ink dark:text-paper">{group.category}</h3>
+						<ul class="divide-y divide-border dark:divide-border-dark">
+							{
+								group.files.map((file) => (
+									<li class="flex flex-col gap-3 py-4 first:pt-0 sm:flex-row sm:items-center sm:justify-between">
+										<p class="font-sans text-lg leading-snug text-ink dark:text-paper">
+											{file.name}
+										</p>
+										<a
+											href={file.url}
+											target="_blank"
+											rel="noopener noreferrer"
+											class="inline-flex shrink-0 items-center gap-1.5 text-sm font-semibold text-accent transition hover:text-accent-hover"
+										>
+											{viewLabel}
+											<svg
+												class="h-4 w-4"
+												viewBox="0 0 24 24"
+												fill="none"
+												stroke="currentColor"
+												stroke-width="1.5"
+												aria-hidden="true"
+											>
+												<path
+													stroke-linecap="round"
+													stroke-linejoin="round"
+													d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+												/>
+											</svg>
+										</a>
+									</li>
+								))
+							}
+						</ul>
+					</div>
+				))
+			}
+		</div>
+	)
+}

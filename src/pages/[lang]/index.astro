@@ -1,0 +1,150 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Section from '../../components/Section.astro';
+import ArticlesList from '../../components/ArticlesList.astro';
+import CTAButton from '../../components/CTAButton.astro';
+import TeachingCard from '../../components/TeachingCard';
+import SocialLinks from '../../components/SocialLinks';
+import { getPublicationGroups } from '../../config/publications';
+import {
+	educationItems,
+	experienceItems,
+	profileFacts,
+} from '../../i18n/cv-content';
+import { languages, type Lang } from '../../i18n/ui';
+import { hashNavPath, useTranslations } from '../../i18n/utils';
+
+export function getStaticPaths() {
+	return languages.map((lang) => ({ params: { lang } }));
+}
+
+const { lang: langParam } = Astro.params;
+const lang = langParam as Lang;
+const t = useTranslations(lang);
+const publicationGroups = getPublicationGroups();
+---
+
+<BaseLayout lang={lang}>
+	<section id="bosh" class="scroll-mt-24 mb-section lg:scroll-mt-28">
+		<p class="mb-3 text-sm font-semibold tracking-widest text-accent uppercase">
+			{t('hero.greeting')}
+		</p>
+		<h1 class="font-sans text-4xl leading-tight text-balance text-ink md:text-5xl lg:text-6xl dark:text-paper">
+			{t('profile.name')}
+		</h1>
+		<p class="mt-2 font-sans text-xl text-ink-muted md:text-2xl dark:text-paper/70">
+			{t('profile.role')}
+		</p>
+		<p class="prose-width mt-8 text-lg leading-relaxed text-ink-muted dark:text-paper/75">
+			{t('hero.intro')}
+		</p>
+
+		<div class="mt-10 flex flex-wrap gap-4">
+			<CTAButton href={hashNavPath(lang, 'maqolalar')}>
+				{t('nav.maqolalar')}
+			</CTAButton>
+			<CTAButton href={hashNavPath(lang, 'cv')} variant="secondary">
+				{t('hero.cta.cv')}
+			</CTAButton>
+		</div>
+	</section>
+
+	<Section id="bio" title={t('hero.facts.title')}>
+		<dl class="grid gap-4 sm:grid-cols-2">
+			{
+				profileFacts.map(({ labelKey, valueKey }) => (
+					<div class="rounded-lg border border-border bg-surface p-4 dark:border-border-dark dark:bg-surface-dark">
+						<dt class="text-sm font-medium text-ink-muted dark:text-paper/60">{t(labelKey)}</dt>
+						<dd class="mt-1 font-sans text-ink dark:text-paper">{t(valueKey)}</dd>
+					</div>
+				))
+			}
+		</dl>
+	</Section>
+
+	<Section id="darslar" title={t('hero.teaching.title')}>
+		<div class="grid gap-6 md:grid-cols-3">
+			<TeachingCard
+				icon="classics"
+				title={t('hero.teaching.classics')}
+				description={t('hero.teaching.classics.desc')}
+			/>
+			<TeachingCard
+				icon="poetry"
+				title={t('hero.teaching.poetry')}
+				description={t('hero.teaching.poetry.desc')}
+			/>
+			<TeachingCard
+				icon="culture"
+				title={t('hero.teaching.culture')}
+				description={t('hero.teaching.culture.desc')}
+			/>
+		</div>
+	</Section>
+
+	<Section id="yutuqlar" title={t('hero.experience.title')}>
+		<ol class="relative space-y-6 border-l-2 border-accent/30 pl-6 dark:border-accent/40">
+			{
+				experienceItems.map(({ periodKey, roleKey, placeKey }) => (
+					<li class="relative">
+						<span
+							class="absolute -left-[1.6rem] top-1.5 h-3 w-3 rounded-full border-2 border-accent bg-paper dark:bg-paper-dark"
+							aria-hidden="true"
+						></span>
+						<p class="text-sm font-semibold text-accent">{t(periodKey)}</p>
+						<h3 class="mt-1 font-sans text-lg text-ink dark:text-paper">{t(roleKey)}</h3>
+						<p class="mt-1 text-sm leading-relaxed text-ink-muted dark:text-paper/70">
+							{t(placeKey)}
+						</p>
+					</li>
+				))
+			}
+		</ol>
+	</Section>
+
+	<Section id="maqolalar" title={t('hero.articles.title')}>
+		<ArticlesList
+			groups={publicationGroups}
+			viewLabel={t('articles.view')}
+			emptyLabel={t('articles.empty')}
+		/>
+	</Section>
+
+	<Section id="cv" title={t('hero.education.title')}>
+		<ul class="space-y-4">
+			{
+				educationItems.map(({ yearKey, degreeKey, placeKey }) => (
+					<li class="card-skill flex flex-col gap-2 sm:flex-row sm:items-start sm:gap-6">
+						<span class="shrink-0 font-semibold text-accent">{t(yearKey)}</span>
+						<div>
+							<h3 class="font-sans text-lg text-ink dark:text-paper">{t(degreeKey)}</h3>
+							<p class="mt-1 text-sm text-ink-muted dark:text-paper/70">{t(placeKey)}</p>
+						</div>
+					</li>
+				))
+			}
+		</ul>
+		<div class="mt-8">
+			<CTAButton href="/cv.pdf" download>
+				{t('hero.cta.cv')}
+			</CTAButton>
+		</div>
+	</Section>
+
+	<Section id="aloqa" title={t('nav.aloqa')}>
+		<p class="prose-width mb-6 text-lg leading-relaxed text-ink-muted dark:text-paper/75">
+			{t('section.aloqa.text')}
+		</p>
+		<SocialLinks
+			client:visible
+			variant="default"
+			class="flex items-center gap-3"
+			labels={{
+				'social.telegram': t('social.telegram'),
+				'social.instagram': t('social.instagram'),
+				'social.phone': t('social.phone'),
+				'social.email': t('social.email'),
+			}}
+		/>
+	</Section>
+</BaseLayout>

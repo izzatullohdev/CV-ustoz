@@ -1,0 +1,50 @@
+---
+import type { Lang } from '../i18n/ui';
+import { ui } from '../i18n/ui';
+import { useTranslations } from '../i18n/utils';
+import ProfileCard from './ProfileCard.astro';
+import SidebarNav from './SidebarNav';
+import LangSwitcher from './LangSwitcher';
+
+interface Props {
+	lang: Lang;
+	currentPath: string;
+}
+
+const { lang, currentPath } = Astro.props;
+const t = useTranslations(lang);
+const translations = ui[lang];
+---
+
+<div class="flex h-full flex-col">
+	<ProfileCard lang={lang} />
+
+	<div class="mt-8 w-full border-t border-white/20 pt-6">
+		<SidebarNav
+			client:load
+			lang={lang}
+			currentPath={currentPath}
+			translations={translations}
+		/>
+	</div>
+
+	<div class="mt-auto w-full space-y-4 pt-8">
+		<a
+			href="/cv.pdf"
+			download
+			class="flex w-full items-center justify-center rounded-md bg-accent-dark px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-accent-hover"
+		>
+			{t('hero.cta.cv')}
+		</a>
+
+		<div class="hidden border-t border-white/20 pt-4 lg:block">
+			<LangSwitcher
+				client:load
+				currentLang={lang}
+				currentPath={currentPath}
+				label={t('lang.switch')}
+				variant="sidebar"
+			/>
+		</div>
+	</div>
+</div>

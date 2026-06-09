@@ -1,0 +1,128 @@
+---
+import { navItems, type Lang } from '../i18n/ui';
+import { hashNavPath, useTranslations } from '../i18n/utils';
+import LangSwitcher from './LangSwitcher';
+import SocialLinksSidebar from './SocialLinksSidebar.astro';
+import ThemeSwitch from './ui/theme-switch';
+
+interface Props {
+	lang: Lang;
+	currentPath: string;
+}
+
+const { lang, currentPath } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<header
+	class="sticky top-0 z-50 flex items-center justify-between border-b border-border bg-paper/95 px-4 py-3 backdrop-blur-md lg:px-10 dark:border-border-dark dark:bg-paper-dark/95"
+>
+	<button
+		type="button"
+		data-mobile-menu-toggle
+		data-label-open={t('menu.open')}
+		data-label-close={t('menu.close')}
+		class="inline-flex h-10 w-10 items-center justify-center rounded-md text-ink transition hover:bg-accent/10 lg:hidden dark:text-paper"
+		aria-label={t('menu.open')}
+		aria-expanded="false"
+		aria-controls="mobile-menu"
+		onclick="window.toggleMobileMenu && window.toggleMobileMenu(this)"
+	>
+		<svg
+			data-menu-icon-open
+			class="h-6 w-6"
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			stroke-width="1.5"
+			aria-hidden="true"
+		>
+			<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+			></path>
+		</svg>
+		<svg
+			data-menu-icon-close
+			class="hidden h-6 w-6"
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			stroke-width="1.5"
+			aria-hidden="true"
+		>
+			<path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"></path>
+		</svg>
+	</button>
+
+	<div class="hidden lg:block" aria-hidden="true"></div>
+
+	<LangSwitcher client:load currentLang={lang} currentPath={currentPath} label={t('lang.switch')} />
+</header>
+
+<button
+	type="button"
+	data-mobile-menu-backdrop
+	class="fixed inset-0 z-[60] bg-ink/40 opacity-0 transition-opacity duration-300 pointer-events-none lg:hidden"
+	aria-label={t('menu.close')}
+	tabindex="-1"
+	onclick="window.closeMobileMenu && window.closeMobileMenu()"
+></button>
+
+<div
+	id="mobile-menu"
+	data-mobile-menu
+	class="fixed inset-x-0 top-0 z-[60] max-h-[92vh] overflow-y-auto bg-accent px-4 pb-8 pt-17 text-white shadow-lg transition-transform duration-300 ease-out -translate-y-full pointer-events-none lg:hidden"
+	aria-hidden="true"
+>
+	<div class="flex flex-col items-center text-center">
+		<div class="relative mb-4 h-24 w-24 overflow-hidden rounded-full border-[3px] border-white/40 shadow-lg">
+			<img
+				src="/images/portrait.jpg"
+				alt={t('profile.name')}
+				width="96"
+				height="96"
+				class="h-full w-full object-cover object-top"
+				loading="lazy"
+			/>
+		</div>
+		<p class="font-sans text-lg text-white">{t('profile.name')}</p>
+		<p class="mt-1 text-xs font-semibold tracking-wide text-white/90 uppercase">{t('profile.role')}</p>
+	</div>
+
+	<SocialLinksSidebar lang={lang} />
+
+	<nav class="mt-6 w-full border-t border-white/20 pt-6" aria-label="Main">
+		<ul class="flex flex-col gap-1">
+			{
+				navItems.map(({ key, hash }) => (
+					<li>
+						<a
+							href={hashNavPath(lang, hash)}
+							class="flex items-center gap-3 rounded-md px-3 py-2.5 text-sm text-white/80 transition hover:bg-white/10 hover:text-white"
+							onclick="window.closeMobileMenu && window.closeMobileMenu()"
+						>
+							{t(key)}
+						</a>
+					</li>
+				))
+			}
+		</ul>
+	</nav>
+
+	<div class="mt-6 space-y-4">
+		<a
+			href="/cv.pdf"
+			download
+			class="flex w-full items-center justify-center rounded-md bg-accent-dark px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-accent-hover"
+		>
+			{t('hero.cta.cv')}
+		</a>
+
+		<div class="flex items-center justify-between rounded-md px-1 py-1">
+			<span class="text-sm text-white/80">{t('theme.dark')}</span>
+			<ThemeSwitch
+				client:load
+				class="[&_.peer]:bg-white/25 [&_.peer]:data-[state=checked]:bg-white/40"
+			/>
+		</div>
+	</div>
+</div>

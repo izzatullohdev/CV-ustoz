@@ -1,0 +1,16 @@
+---
+import type { Lang } from '../i18n/ui';
+import { useTranslations } from '../i18n/utils';
+
+interface Props {
+	lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const year = new Date().getFullYear();
+---
+
+<footer class="mt-auto border-t border-border px-4 py-8 text-center text-sm text-ink-muted dark:border-border-dark dark:text-paper/50 lg:px-10">
+	<p>&copy; {year} {t('profile.name')}. {t('footer.rights')}</p>
+</footer>

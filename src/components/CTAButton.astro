@@ -1,0 +1,26 @@
+---
+interface Props {
+	href: string;
+	variant?: 'primary' | 'secondary';
+	download?: boolean;
+	class?: string;
+}
+
+const { href, variant = 'primary', download = false, class: className = '' } = Astro.props;
+
+const base =
+	'inline-flex items-center justify-center rounded-md px-6 py-3 text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent';
+
+const variants = {
+	primary: 'bg-accent text-white hover:bg-accent-hover',
+	secondary: 'bg-secondary text-white hover:bg-secondary-hover',
+};
+---
+
+<a
+	href={href}
+	class:list={[base, variants[variant], className]}
+	download={download || undefined}
+>
+	<slot />
+</a>
