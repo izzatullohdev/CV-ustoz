@@ -19,6 +19,7 @@ export default defineConfig({
 		locales: ['uz', 'ru', 'en'],
 		routing: {
 			prefixDefaultLocale: true,
+			redirectToDefaultLocale: false,
 		},
 	},
 	vite: {
