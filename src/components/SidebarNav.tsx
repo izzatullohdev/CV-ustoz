@@ -1,7 +1,8 @@
-import { useEffect, useState, type MouseEvent } from 'react';
+import { useEffect, useRef, useState, type MouseEvent } from 'react';
 import type { Lang, UIKey } from '../i18n/ui';
 import { navItems } from '../i18n/ui';
 import { hashNavPath, isHomePath } from '../i18n/utils';
+import { SCROLL_OFFSET, scrollToSection } from '../lib/scroll-to-section';
 import { NavIcon } from './icons';
 
 interface SidebarNavProps {
@@ -16,37 +17,91 @@ function getActiveHash(): string {
 	return window.location.hash.replace('#', '') || 'bosh';
 }
 
-function scrollToSection(hash: string) {
-	const target = document.getElementById(hash);
-	if (!target) return;
-	target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+function getSectionInView(sectionIds: string[]): string {
+	let current = sectionIds[0] ?? 'bosh';
+	for (const id of sectionIds) {
+		const el = document.getElementById(id);
+		if (el && el.getBoundingClientRect().top <= SCROLL_OFFSET) {
+			current = id;
+		}
+	}
+	return current;
 }
 
 export default function SidebarNav({ lang, currentPath, translations, onNavigate }: SidebarNavProps) {
 	const [activeHash, setActiveHash] = useState('bosh');
+	const programmaticScroll = useRef(false);
 	const onHome = isHomePath(currentPath, lang);
 
 	useEffect(() => {
-		const updateHash = () => setActiveHash(getActiveHash());
-		updateHash();
-		window.addEventListener('hashchange', updateHash);
-		return () => window.removeEventListener('hashchange', updateHash);
-	}, [currentPath]);
+		if (!onHome) return;
+
+		const syncFromHash = () => {
+			setActiveHash(getActiveHash());
+		};
+
+		if (!window.location.hash) {
+			window.history.replaceState(null, '', hashNavPath(lang, 'bosh'));
+			setActiveHash('bosh');
+			window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+		} else {
+			syncFromHash();
+			const hash = getActiveHash();
+			requestAnimationFrame(() => scrollToSection(hash));
+		}
+
+		window.addEventListener('hashchange', syncFromHash);
+		return () => window.removeEventListener('hashchange', syncFromHash);
+	}, [onHome, lang, currentPath]);
 
 	useEffect(() => {
 		if (!onHome) return;
-		const hash = getActiveHash();
-		if (hash === 'bosh') return;
-		requestAnimationFrame(() => scrollToSection(hash));
-	}, [onHome, currentPath]);
 
-	const handleClick = (event: MouseEvent<HTMLAnchorElement>, hash: string) => {
-		if (!onHome) return;
-		event.preventDefault();
+		const sectionIds = navItems.map((item) => item.hash);
+		let ticking = false;
+
+		const updateFromScroll = () => {
+			if (programmaticScroll.current) return;
+
+			const current = getSectionInView(sectionIds);
+			setActiveHash((prev) => {
+				if (prev === current) return prev;
+				window.history.replaceState(null, '', hashNavPath(lang, current));
+				return current;
+			});
+		};
+
+		const onScroll = () => {
+			if (ticking) return;
+			ticking = true;
+			requestAnimationFrame(() => {
+				updateFromScroll();
+				ticking = false;
+			});
+		};
+
+		window.addEventListener('scroll', onScroll, { passive: true });
+		updateFromScroll();
+
+		return () => window.removeEventListener('scroll', onScroll);
+	}, [onHome, lang, currentPath]);
+
+	const navigateToSection = (hash: string) => {
+		programmaticScroll.current = true;
 		scrollToSection(hash);
 		window.history.pushState(null, '', hashNavPath(lang, hash));
 		setActiveHash(hash);
 		onNavigate?.();
+
+		window.setTimeout(() => {
+			programmaticScroll.current = false;
+		}, 1000);
+	};
+
+	const handleClick = (event: MouseEvent<HTMLAnchorElement>, hash: string) => {
+		if (!onHome) return;
+		event.preventDefault();
+		navigateToSection(hash);
 	};
 
 	return (

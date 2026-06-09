@@ -3,7 +3,6 @@ import { navItems, type Lang } from '../i18n/ui';
 import { hashNavPath, useTranslations } from '../i18n/utils';
 import LangSwitcher from './LangSwitcher';
 import SocialLinksSidebar from './SocialLinksSidebar.astro';
-import ThemeSwitch from './ui/theme-switch';
 
 interface Props {
 	lang: Lang;
@@ -98,7 +97,7 @@ const t = useTranslations(lang);
 						<a
 							href={hashNavPath(lang, hash)}
 							class="flex items-center gap-3 rounded-md px-3 py-2.5 text-sm text-white/80 transition hover:bg-white/10 hover:text-white"
-							onclick="window.closeMobileMenu && window.closeMobileMenu()"
+							onclick={`event.preventDefault(); window.navigateToSection('${hash}', '${hashNavPath(lang, hash)}')`}
 						>
 							{t(key)}
 						</a>
@@ -108,7 +107,7 @@ const t = useTranslations(lang);
 		</ul>
 	</nav>
 
-	<div class="mt-6 space-y-4">
+	<div class="mt-6">
 		<a
 			href="/cv.pdf"
 			download
@@ -116,13 +115,5 @@ const t = useTranslations(lang);
 		>
 			{t('hero.cta.cv')}
 		</a>
-
-		<div class="flex items-center justify-between rounded-md px-1 py-1">
-			<span class="text-sm text-white/80">{t('theme.dark')}</span>
-			<ThemeSwitch
-				client:load
-				class="[&_.peer]:bg-white/25 [&_.peer]:data-[state=checked]:bg-white/40"
-			/>
-		</div>
 	</div>
 </div>
