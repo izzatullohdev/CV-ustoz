@@ -151,6 +151,10 @@
 		@apply rounded-lg border border-border bg-surface p-6 shadow-sm transition hover:shadow-md dark:border-border-dark dark:bg-surface-dark;
 	}
 
+	.card-skill-link {
+		@apply cursor-pointer no-underline hover:border-accent/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 dark:focus-visible:ring-offset-paper-dark;
+	}
+
 	.icon-skill {
 		@apply bg-accent-light text-accent dark:bg-accent/20 dark:text-accent;
 	}

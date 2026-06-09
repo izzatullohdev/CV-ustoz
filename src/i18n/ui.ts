@@ -6,7 +6,9 @@ export const ui = {
 	uz: {
 		'site.title': 'Nasirdinova Oydinniso — O\'zbek tili va adabiyoti',
 		'site.description':
-			'Nasirdinova Oydinniso Dagarovna — TDOTAU tayanch doktoranti, o\'zbek tili va adabiyoti o\'qituvchisi, lingvistika mutaxassisi.',
+			'Nasirdinova Oydinniso Dagarovna — ToshDO\'TAU tayanch doktoranti va o\'zbek tili va adabiyoti o\'qituvchisi. Biografiya, metodika, ilmiy maqolalar va aloqa.',
+		'site.keywords':
+			'Nasirdinova Oydinniso, Oydinniso Nasirdinova, o\'zbek tili o\'qituvchisi, adabiyot, lingvistika, ToshDO\'TAU, tayanch doktorant, Toshkent, ilmiy maqolalar, portfolio, CV, o\'zbek tili va adabiyoti',
 		'profile.name': 'Nasirdinova Oydinniso',
 		'profile.role': 'O\'zbek tili va adabiyoti o\'qituvchisi',
 		'profile.tagline': 'Til, adabiyot va ilmiy tadqiqot uyg\'unligi',
@@ -23,7 +25,7 @@ export const ui = {
 		'nav.close': 'Yopish',
 		'hero.greeting': 'Salom, men',
 		'hero.intro':
-			'Alisher Navoiy nomidagi Toshkent davlat o\'zbek tili va adabiyoti universiteti tayanch doktorantiman. Lingvistika (o\'zbek tili) yo\'nalishi bo\'yicha magistr darajasiga egaman. O\'zbekiston Milliy universiteti va TDOTAU bitiruvchisi sifatida maktab hamda oliy ta\'limda o\'zbek tili va adabiyotini o\'qitish, zamonaviy metodikalarni qo\'llash va ilmiy tadqiqot olib borish bilan shug\'ullanaman.',
+			'ToshDO\'TAU tayanch doktorantiman. Lingvistika (o\'zbek tili) yo\'nalishi bo\'yicha magistr darajasiga egaman. O\'zbekiston Milliy universiteti va ToshDO\'TAU bitiruvchisi sifatida maktab hamda oliy ta\'limda o\'zbek tili va adabiyotini o\'qitish, zamonaviy metodikalarni qo\'llash va ilmiy tadqiqot olib borish bilan shug\'ullanaman.',
 		'hero.cta.works': 'Ijodni ko\'rish',
 		'hero.cta.cv': 'CV yuklab olish',
 		'hero.facts.title': 'Asosiy ma\'lumotlar',
@@ -38,8 +40,7 @@ export const ui = {
 		'hero.experience.title': 'Mehnat faoliyati',
 		'cv.exp1.period': '2023 — hozirgacha',
 		'cv.exp1.role': 'Tayanch doktorant',
-		'cv.exp1.place':
-			'Alisher Navoiy nomidagi Toshkent davlat o\'zbek tili va adabiyoti universiteti',
+		'cv.exp1.place': 'ToshDO\'TAU',
 		'cv.exp2.period': '2021 — 2025',
 		'cv.exp2.role': 'Stajor-o\'qituvchi',
 		'cv.exp2.place':
@@ -49,16 +50,14 @@ export const ui = {
 		'cv.exp3.place': 'Toshkent shahri, Sergeli tumani, «Saodat sifatli ta\'lim» NTM',
 		'cv.exp4.period': '2019 — 2021',
 		'cv.exp4.role': 'Magistrant',
-		'cv.exp4.place':
-			'Alisher Navoiy nomidagi Toshkent davlat o\'zbek tili va adabiyoti universiteti',
+		'cv.exp4.place': 'ToshDO\'TAU',
 		'cv.exp5.period': '2012 — 2016',
 		'cv.exp5.role': 'Talaba',
 		'cv.exp5.place': 'O\'zbekiston Milliy universiteti',
 		'hero.education.title': 'Ta\'lim',
 		'cv.edu1.year': '2021',
 		'cv.edu1.degree': 'Magistr — Lingvistika (o\'zbek tili)',
-		'cv.edu1.place':
-			'Alisher Navoiy nomidagi Toshkent davlat o\'zbek tili va adabiyoti universiteti',
+		'cv.edu1.place': 'ToshDO\'TAU',
 		'cv.edu2.year': '2016',
 		'cv.edu2.degree': 'Bakalavr',
 		'cv.edu2.place': 'O\'zbekiston Milliy universiteti',
@@ -103,7 +102,9 @@ export const ui = {
 	ru: {
 		'site.title': 'Насирдинова Ойдиннисо — Узбекский язык и литература',
 		'site.description':
-			'Насирдинова Ойдиннисо Дагаровна — соискатель докторантуры ТГУУЯИ, преподаватель узбекского языка и литературы, лингвист.',
+			'Насирдинова Ойдиннисо Дагаровна — соискатель докторантуры ToshDO\'TAU и преподаватель узбекского языка и литературы. Биография, методика, научные статьи и контакты.',
+		'site.keywords':
+			'Насирдинова Ойдиннисо, Ойдиннисо Насирдинова, преподаватель узбекского языка, литература, лингвистика, ToshDO\'TAU, докторантура, Ташкент, научные статьи, портфолио, CV',
 		'profile.name': 'Насирдинова Ойдиннисо',
 		'profile.role': 'Преподаватель узбекского языка и литературы',
 		'profile.tagline': 'Гармония языка, литературы и научного поиска',
@@ -120,7 +121,7 @@ export const ui = {
 		'nav.close': 'Закрыть',
 		'hero.greeting': 'Здравствуйте, я',
 		'hero.intro':
-			'Я соискатель докторантуры в Ташкентском государственном университете узбекского языка и литературы имени Алишера Навои. Имею степень магистра по направлению «Лингвистика (узбекский язык)». Выпускница Национального университета Узбекистана и ТГУУЯИ. Преподаю узбекский язык и литературу в школе и вузе, применяю современные методики и веду научные исследования.',
+			'Я соискатель докторантуры в ToshDO\'TAU. Имею степень магистра по направлению «Лингвистика (узбекский язык)». Выпускница Национального университета Узбекистана и ToshDO\'TAU. Преподаю узбекский язык и литературу в школе и вузе, применяю современные методики и веду научные исследования.',
 		'hero.cta.works': 'Смотреть творчество',
 		'hero.cta.cv': 'Скачать резюме',
 		'hero.facts.title': 'Основные сведения',
@@ -135,8 +136,7 @@ export const ui = {
 		'hero.experience.title': 'Трудовая деятельность',
 		'cv.exp1.period': '2023 — настоящее время',
 		'cv.exp1.role': 'Соискатель докторантуры',
-		'cv.exp1.place':
-			'Ташкентский государственный университет узбекского языка и литературы имени Алишера Навои',
+		'cv.exp1.place': 'ToshDO\'TAU',
 		'cv.exp2.period': '2021 — 2025',
 		'cv.exp2.role': 'Стажёр-преподаватель',
 		'cv.exp2.place':
@@ -146,16 +146,14 @@ export const ui = {
 		'cv.exp3.place': 'г. Ташкент, Сергелийский район, НТМ «Saodat sifatli ta\'lim»',
 		'cv.exp4.period': '2019 — 2021',
 		'cv.exp4.role': 'Магистрант',
-		'cv.exp4.place':
-			'Ташкентский государственный университет узбекского языка и литературы имени Алишера Навои',
+		'cv.exp4.place': 'ToshDO\'TAU',
 		'cv.exp5.period': '2012 — 2016',
 		'cv.exp5.role': 'Студент',
 		'cv.exp5.place': 'Национальный университет Узбекистана',
 		'hero.education.title': 'Образование',
 		'cv.edu1.year': '2021',
 		'cv.edu1.degree': 'Магистр — Лингвистика (узбекский язык)',
-		'cv.edu1.place':
-			'Ташкентский государственный университет узбекского языка и литературы имени Алишера Навои',
+		'cv.edu1.place': 'ToshDO\'TAU',
 		'cv.edu2.year': '2016',
 		'cv.edu2.degree': 'Бакалавр',
 		'cv.edu2.place': 'Национальный университет Узбекистана',
@@ -200,7 +198,9 @@ export const ui = {
 	en: {
 		'site.title': 'Nasirdinova Oydinniso — Uzbek Language & Literature',
 		'site.description':
-			'Nasirdinova Oydinniso Dagarovna — PhD applicant at TSLU, teacher of Uzbek language and literature, linguistics specialist.',
+			'Nasirdinova Oydinniso Dagarovna — PhD applicant at ToshDO\'TAU and teacher of Uzbek language and literature. Biography, teaching methodology, research articles, and contact.',
+		'site.keywords':
+			'Nasirdinova Oydinniso, Oydinniso Nasirdinova, Uzbek language teacher, literature, linguistics, ToshDO\'TAU, PhD applicant, Tashkent, research articles, portfolio, CV',
 		'profile.name': 'Nasirdinova Oydinniso',
 		'profile.role': 'Uzbek Language & Literature Teacher',
 		'profile.tagline': 'Where language, literature, and research meet',
@@ -217,7 +217,7 @@ export const ui = {
 		'nav.close': 'Close',
 		'hero.greeting': 'Hello, I am',
 		'hero.intro':
-			'I am a PhD applicant at Alisher Navoi Tashkent State University of Uzbek Language and Literature. I hold a Master\'s degree in Linguistics (Uzbek language). As a graduate of the National University of Uzbekistan and TSLU, I teach Uzbek language and literature at school and university level, apply modern methodologies, and conduct academic research.',
+			'I am a PhD applicant at ToshDO\'TAU. I hold a Master\'s degree in Linguistics (Uzbek language). As a graduate of the National University of Uzbekistan and ToshDO\'TAU, I teach Uzbek language and literature at school and university level, apply modern methodologies, and conduct academic research.',
 		'hero.cta.works': 'View works',
 		'hero.cta.cv': 'Download CV',
 		'hero.facts.title': 'Key information',
@@ -232,8 +232,7 @@ export const ui = {
 		'hero.experience.title': 'Work experience',
 		'cv.exp1.period': '2023 — present',
 		'cv.exp1.role': 'PhD applicant',
-		'cv.exp1.place':
-			'Alisher Navoi Tashkent State University of Uzbek Language and Literature',
+		'cv.exp1.place': 'ToshDO\'TAU',
 		'cv.exp2.period': '2021 — 2025',
 		'cv.exp2.role': 'Trainee teacher',
 		'cv.exp2.place':
@@ -243,16 +242,14 @@ export const ui = {
 		'cv.exp3.place': 'Tashkent, Sergeli district, «Saodat sifatli ta\'lim» private school',
 		'cv.exp4.period': '2019 — 2021',
 		'cv.exp4.role': 'Master\'s student',
-		'cv.exp4.place':
-			'Alisher Navoi Tashkent State University of Uzbek Language and Literature',
+		'cv.exp4.place': 'ToshDO\'TAU',
 		'cv.exp5.period': '2012 — 2016',
 		'cv.exp5.role': 'Student',
 		'cv.exp5.place': 'National University of Uzbekistan',
 		'hero.education.title': 'Education',
 		'cv.edu1.year': '2021',
 		'cv.edu1.degree': 'Master\'s — Linguistics (Uzbek language)',
-		'cv.edu1.place':
-			'Alisher Navoi Tashkent State University of Uzbek Language and Literature',
+		'cv.edu1.place': 'ToshDO\'TAU',
 		'cv.edu2.year': '2016',
 		'cv.edu2.degree': 'Bachelor\'s degree',
 		'cv.edu2.place': 'National University of Uzbekistan',

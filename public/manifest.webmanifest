@@ -1,0 +1,25 @@
+{
+	"name": "Nasirdinova Oydinniso — O'zbek tili va adabiyoti",
+	"short_name": "Oydinniso",
+	"description": "Nasirdinova Oydinniso Dagarovna — o'zbek tili va adabiyoti o'qituvchisi portfoliosi",
+	"start_url": "/uz/",
+	"scope": "/",
+	"display": "standalone",
+	"background_color": "#f8f6f1",
+	"theme_color": "#54b689",
+	"lang": "uz",
+	"icons": [
+		{
+			"src": "/images/portrait.jpg",
+			"sizes": "709x945",
+			"type": "image/jpeg",
+			"purpose": "any"
+		},
+		{
+			"src": "/favicon.svg",
+			"sizes": "any",
+			"type": "image/svg+xml",
+			"purpose": "any"
+		}
+	]
+}

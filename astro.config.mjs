@@ -39,5 +39,30 @@ export default defineConfig({
 			},
 		},
 	},
-	integrations: [react(), mdx(), sitemap()],
+	integrations: [
+		react(),
+		mdx(),
+		sitemap({
+			filter: (page) => new URL(page).pathname !== '/',
+			i18n: {
+				defaultLocale: 'uz',
+				locales: {
+					uz: 'uz-UZ',
+					ru: 'ru-RU',
+					en: 'en-US',
+				},
+			},
+			serialize(item) {
+				const pathname = new URL(item.url).pathname;
+				if (pathname.startsWith('/uz/')) {
+					item.priority = 1;
+					item.changefreq = 'weekly';
+				} else if (pathname.startsWith('/ru/') || pathname.startsWith('/en/')) {
+					item.priority = 0.9;
+					item.changefreq = 'weekly';
+				}
+				return item;
+			},
+		}),
+	],
 });

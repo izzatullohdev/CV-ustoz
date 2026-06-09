@@ -146,15 +146,51 @@ const publicationGroups = getPublicationGroups();
 	<Section id="cv" title={t('hero.education.title')}>
 		<ul class="space-y-4">
 			{
-				educationItems.map(({ yearKey, degreeKey, placeKey }) => (
-					<li class="card-skill flex flex-col gap-2 sm:flex-row sm:items-start sm:gap-6">
-						<span class="shrink-0 font-semibold text-accent">{t(yearKey)}</span>
-						<div>
-							<h3 class="font-sans text-lg text-ink dark:text-paper">{t(degreeKey)}</h3>
-							<p class="mt-1 text-sm text-ink-muted dark:text-paper/70">{t(placeKey)}</p>
-						</div>
-					</li>
-				))
+				educationItems.map(({ yearKey, degreeKey, placeKey, documentHref }) => {
+					const content = (
+						<>
+							<span class="shrink-0 font-semibold text-accent">{t(yearKey)}</span>
+							<div class="min-w-0 flex-1">
+								<h3 class="font-sans text-lg text-ink dark:text-paper">{t(degreeKey)}</h3>
+								<p class="mt-1 text-sm text-ink-muted dark:text-paper/70">{t(placeKey)}</p>
+							</div>
+							{documentHref && (
+								<svg
+									class="mt-1 h-4 w-4 shrink-0 text-accent sm:mt-1.5"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="1.5"
+									aria-hidden="true"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+									/>
+								</svg>
+							)}
+						</>
+					);
+
+					return documentHref ? (
+						<li>
+							<a
+								href={documentHref}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="card-skill card-skill-link flex flex-col gap-2 sm:flex-row sm:items-start sm:gap-6"
+								aria-label={`${t(degreeKey)} — ${t('articles.view')}`}
+							>
+								{content}
+							</a>
+						</li>
+					) : (
+						<li class="card-skill flex flex-col gap-2 sm:flex-row sm:items-start sm:gap-6">
+							{content}
+						</li>
+					);
+				})
 			}
 		</ul>
 		<div class="mt-8">

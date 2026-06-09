@@ -10,6 +10,8 @@ export interface EducationItem {
 	yearKey: UIKey;
 	degreeKey: UIKey;
 	placeKey: UIKey;
+	/** Public path to diploma/certificate PDF — opens in a new tab when set */
+	documentHref?: string;
 }
 
 export const experienceItems: ExperienceItem[] = [
@@ -21,8 +23,18 @@ export const experienceItems: ExperienceItem[] = [
 ];
 
 export const educationItems: EducationItem[] = [
-	{ yearKey: 'cv.edu1.year', degreeKey: 'cv.edu1.degree', placeKey: 'cv.edu1.place' },
-	{ yearKey: 'cv.edu2.year', degreeKey: 'cv.edu2.degree', placeKey: 'cv.edu2.place' },
+	{
+		yearKey: 'cv.edu1.year',
+		degreeKey: 'cv.edu1.degree',
+		placeKey: 'cv.edu1.place',
+		documentHref: '/Magistr%20diplom%2BIlova.pdf',
+	},
+	{
+		yearKey: 'cv.edu2.year',
+		degreeKey: 'cv.edu2.degree',
+		placeKey: 'cv.edu2.place',
+		documentHref: '/Bakalavr%20diplom%2BIlova.pdf',
+	},
 ];
 
 export const profileFacts = [

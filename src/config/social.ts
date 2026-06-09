@@ -18,27 +18,27 @@ export interface SocialLinkConfig {
 export const socialLinks: SocialLinkConfig[] = [
 	{
 		id: 'telegram',
-		href: 'https://t.me/oydinniso_nasirdinova',
+		href: 'https://t.me/Nasirdinova_O',
 		labelKey: 'social.telegram',
 		icon: FaTelegram,
 		external: true,
 	},
 	{
 		id: 'instagram',
-		href: 'https://instagram.com/oydinniso_nasirdinova',
+		href: 'https://www.instagram.com/oydinnisonasirdinova?igsh=a3dvM2hzeHI0b2Zh&utm_source=qr',
 		labelKey: 'social.instagram',
 		icon: FaInstagram,
 		external: true,
 	},
 	{
 		id: 'phone',
-		href: 'tel:+998901234567',
+		href: 'tel:+998977133001',
 		labelKey: 'social.phone',
 		icon: HiPhone,
 	},
 	{
 		id: 'email',
-		href: 'mailto:oydinniso.nasirdinova@example.uz',
+		href: 'mailto:oydinnisonasirdinova0@gmail.com',
 		labelKey: 'social.email',
 		icon: HiEnvelope,
 	},

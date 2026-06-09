@@ -1,5 +1,8 @@
 ---
+import { SITE_URL } from '../config/seo';
+
 const target = '/uz/';
+const canonicalUrl = new URL(target, SITE_URL).href;
 ---
 
 <!doctype html>
@@ -7,8 +10,9 @@ const target = '/uz/';
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="robots" content="noindex, follow" />
 		<meta http-equiv="refresh" content={`0;url=${target}`} />
-		<link rel="canonical" href={target} />
+		<link rel="canonical" href={canonicalUrl} />
 		<title>Redirect</title>
 		<script is:inline define:vars={{ target }}>
 			window.location.replace(target);

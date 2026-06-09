@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
-import { languages, type Lang, type UIKey, ui } from '../i18n/ui';
+import { type Lang, type UIKey, ui } from '../i18n/ui';
+import SeoHead from '../components/SeoHead.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import Sidebar from '../components/Sidebar.astro';
 import Footer from '../components/Footer.astro';
@@ -15,6 +16,7 @@ const { lang, title, description } = Astro.props;
 const t = (key: UIKey) => ui[lang][key];
 const pageTitle = title ?? t('site.title');
 const pageDescription = description ?? t('site.description');
+const pageKeywords = t('site.keywords');
 const canonicalPath = Astro.url.pathname.endsWith('/')
 	? Astro.url.pathname
 	: `${Astro.url.pathname}/`;
@@ -27,34 +29,21 @@ const canonicalUrl = new URL(canonicalPath, siteOrigin).href;
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<meta name="description" content={pageDescription} />
-		<meta name="generator" content={Astro.generator} />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="canonical" href={canonicalUrl} />
+		<link rel="apple-touch-icon" href="/images/portrait.jpg" />
+		<link rel="manifest" href="/manifest.webmanifest" />
 
-		<title>{pageTitle}</title>
-
-		<meta property="og:type" content="website" />
-		<meta property="og:title" content={pageTitle} />
-		<meta property="og:description" content={pageDescription} />
-		<meta property="og:url" content={canonicalUrl} />
-		<meta property="og:locale" content={lang === 'uz' ? 'uz_UZ' : lang === 'ru' ? 'ru_RU' : 'en_US'} />
-
-		{
-			languages.map((altLang) => {
-				const segments = canonicalPath.split('/').filter(Boolean);
-				if (segments.length > 0) segments[0] = altLang;
-				const altPath = segments.length ? `/${segments.join('/')}/` : `/${altLang}/`;
-				return (
-					<link
-						rel="alternate"
-						hreflang={altLang}
-						href={new URL(altPath, siteOrigin).href}
-					/>
-				);
-			})
-		}
-		<link rel="alternate" hreflang="x-default" href={new URL('/uz/', siteOrigin).href} />
+		<SeoHead
+			lang={lang}
+			pageTitle={pageTitle}
+			pageDescription={pageDescription}
+			keywords={pageKeywords}
+			canonicalUrl={canonicalUrl}
+			canonicalPath={canonicalPath}
+			siteOrigin={siteOrigin}
+			profileName={t('profile.name')}
+			role={t('profile.role')}
+		/>
 
 		<script is:inline>
 			(function () {
