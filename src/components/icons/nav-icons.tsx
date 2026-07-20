@@ -1,4 +1,5 @@
 import {
+	HiAcademicCap,
 	HiBookOpen,
 	HiChatBubbleLeftRight,
 	HiDocumentText,
@@ -24,6 +25,7 @@ const navIconMap: Partial<Record<UIKey, IconType>> = {
 	'nav.yutuqlar': HiTrophy,
 	'nav.fikrlar': HiChatBubbleLeftRight,
 	'nav.maqolalar': HiNewspaper,
+	'nav.sertifikatlar': HiAcademicCap,
 	'nav.cv': HiDocumentText,
 	'nav.aloqa': HiEnvelope,
 };

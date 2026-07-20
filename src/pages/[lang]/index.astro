@@ -2,9 +2,11 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Section from '../../components/Section.astro';
 import ArticlesList from '../../components/ArticlesList.astro';
+import CertificatesList from '../../components/CertificatesList.astro';
 import CTAButton from '../../components/CTAButton.astro';
 import TeachingCard from '../../components/TeachingCard';
 import SocialLinks from '../../components/SocialLinks';
+import { getCertificates } from '../../config/certificates';
 import { getPublicationGroups } from '../../config/publications';
 import {
 	educationItems,
@@ -22,6 +24,7 @@ const { lang: langParam } = Astro.params;
 const lang = langParam as Lang;
 const t = useTranslations(lang);
 const publicationGroups = getPublicationGroups();
+const certificates = getCertificates(lang);
 ---
 
 <BaseLayout lang={lang}>
@@ -198,6 +201,17 @@ const publicationGroups = getPublicationGroups();
 				{t('hero.cta.cv')}
 			</CTAButton>
 		</div>
+	</Section>
+
+	<Section id="sertifikatlar" title={t('nav.sertifikatlar')}>
+		<p class="prose-width mb-6 text-lg leading-relaxed text-ink-muted dark:text-paper/75">
+			{t('section.sertifikatlar.text')}
+		</p>
+		<CertificatesList
+			certificates={certificates}
+			viewLabel={t('articles.view')}
+			emptyLabel={t('certificates.empty')}
+		/>
 	</Section>
 
 	<Section id="aloqa" title={t('nav.aloqa')}>
